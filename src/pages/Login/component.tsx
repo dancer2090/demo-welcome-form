@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 import Button from '@material-ui/core/Button';
@@ -9,9 +9,9 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import Logo from 'components/Logo';
 import { validateEmailField, validatePasswordField } from 'utils/validate';
+import { setStore, getStore } from 'utils/localStore';
 
 function Copyright() {
   return (
@@ -68,8 +68,16 @@ export default function SignIn() {
   
   function submitForm(e:FormEvent) {
     e.preventDefault();
-    if (validateForm()) history.push('/welcome');
+    if (validateForm()) {
+      setStore('jwt', `${process.env.REACT_APP_JWT}`);
+      history.push('/welcome');
+    }
   }
+
+  useEffect(()=>{
+    const key:string = getStore('jwt');
+    if (key) history.push('/welcome');
+  },[])
 
 
   return (
