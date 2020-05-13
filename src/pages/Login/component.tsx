@@ -65,7 +65,7 @@ export default function SignIn() {
     setPasswordError(getPasswordError);
     return getEmailErrors.length === 0 && getPasswordError.length === 0;
   }
-  
+
   function submitForm(e:FormEvent) {
     e.preventDefault();
     if (validateForm()) {
@@ -126,7 +126,7 @@ export default function SignIn() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             error={passwordError.length > 0}
-          />         
+          />
           <Button
             type="submit"
             fullWidth
@@ -135,7 +135,7 @@ export default function SignIn() {
             className={classes.submit}
           >
             Sign In
-          </Button>          
+          </Button>
         </form>
       </div>
       <Box mt={8}>

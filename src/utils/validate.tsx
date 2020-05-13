@@ -35,6 +35,14 @@ const passwordCheck:Check[] = [
   },  
 ];
 
+const textCheck:Check[] = [
+  {
+    reg: '',
+    validation: (val: string, compare: string):boolean => val === compare,
+    message: 'Please, fill the form',
+  },
+];
+
 export const validateEmailField = (email: string):string[] => {
   const error: string[] = [];
   emailCheck.forEach((el:Check) => {
@@ -47,6 +55,14 @@ export const validatePasswordField = (password: string):string[] => {
   const error: string[] = [];
   passwordCheck.forEach((el:Check) => {
     if (el.validation(password, el.reg)) error.push(el.message);
+  });
+  return error;
+}
+
+export const validateTextField = (text: string):string[] => {
+  const error: string[] = [];
+  textCheck.forEach((el:Check) => {
+    if (el.validation(text, el.reg)) error.push(el.message);
   });
   return error;
 }

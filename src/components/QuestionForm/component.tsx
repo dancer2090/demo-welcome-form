@@ -15,18 +15,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import { bpTheme } from 'utils/breakpoints';
+import { StyledRadio, StyledCheckbox, StyledFormControlLabel, useStyles } from './style';
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-}));
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 const QuestionForm = () => {
   const classes = useStyles();
@@ -55,44 +51,76 @@ const QuestionForm = () => {
     updateAnswers(newAnswers);
   }
 
-
   const completeTest = () => {
+    actionComplete(answers);
     history.push('/result')
   }
 
   return (
-    <Container>
-      {answers.map((a)=> {
-        const q: QuestionInterface | any = questions.find(q => q.key === a.key);
-        return (
-          <Paper className={classes.paper} key={q.key}>
-            <Typography variant="h5">{q.alias}</Typography>
-            <div>
-              {q.type === 'radio' && (
-                <RadioGroup aria-label="gender" name={a.key} value={a.value} onChange={(e: any) => handleChangeRadio(e, q.key)}>
-                  {q.options.length > 0 && q.options.map((option: OptionInterface) => (
-                    <FormControlLabel key={option.key} value={option.key} control={<Radio />} label={option.alias} />
-                  ))}
-                </RadioGroup>
-              )}
+    <section className={classes.root}>
+      <Container className={classes.container}>
+        <Paper className={classes.paper}>
+            <Typography variant="h3">Heading</Typography>
+            <Typography>Description "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</Typography>
+            <Typography>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</Typography>
+        </Paper>
+        {answers.map((a)=> {
+          const q: QuestionInterface | any = questions.find(q => q.key === a.key);
+          return (
+            <Paper className={classes.paper} key={q.key}>
+              <Typography variant="h5">{q.alias}</Typography>
+              <div>
+                {q.type === 'radio' && (
+                  <RadioGroup aria-label="gender" name={a.key} value={a.value} onChange={(e: any) => handleChangeRadio(e, q.key)}>
+                    {q.options.length > 0 && q.options.map((option: OptionInterface) => (
+                      <StyledFormControlLabel key={option.key} value={option.key} control={<StyledRadio />} label={option.alias} />
+                    ))}
+                  </RadioGroup>
+                )}
 
-              {q.type === 'checkbox' && (
-                <FormGroup>
-                  {q.options.length > 0 && q.options.map((option: OptionInterface) => (
-                    <FormControlLabel
-                      key={option.key}
-                      control={<Checkbox checked={a.value.indexOf(option.key) !== -1} onChange={(e: any) => handleChangeCheckbox(e, q.key)} value={option.key} />}
-                      label={option.alias}
-                    />
-                  ))}
-                </FormGroup>
-              )}
-            </div>
-          </Paper>
-      )})}
-      <Button onClick={() => completeTest()} variant="contained" color="primary">Complete the test</Button>
-    </Container>
+                {q.type === 'checkbox' && (
+                  <FormGroup>
+                    {q.options.length > 0 && q.options.map((option: OptionInterface) => (
+                      <StyledFormControlLabel
+                        key={option.key}
+                        control={<StyledCheckbox checked={a.value.indexOf(option.key) !== -1} onChange={(e: any) => handleChangeCheckbox(e, q.key)} value={option.key} />}
+                        label={option.alias}
+                      />
+                    ))}
+                  </FormGroup>
+                )}
+              </div>
+            </Paper>
+        )})}
+        <Button className={classes.submitButton} onClick={() => completeTest() } variant="contained" color="primary">Send</Button>
+      </Container>
+    </section>
   )
 };
 
-export default QuestionForm;
+
+const actionComplete = (newAnswers = defaultAnswers) => {
+  console.log(newAnswers);
+  return {
+      type: 'ACTION_COMPLETE',
+      payload: newAnswers,
+  }
+}
+
+const mapStateToProps = (state : UserAnswerInterface[]) => {
+  console.log(state);
+  return {
+    answers : state
+  }
+};
+
+const dispatchActionsToProps = (dispatch : any) => {
+  return {
+    actionComplete: bindActionCreators(actionComplete, dispatch)
+  }
+};
+
+
+const WrappedMainComponent = connect(mapStateToProps, dispatchActionsToProps)(QuestionForm);
+
+export default WrappedMainComponent
