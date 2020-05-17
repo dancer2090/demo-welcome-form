@@ -1,3 +1,3 @@
-import Result from './component';
+import Result from "./component";
 
 export default Result;

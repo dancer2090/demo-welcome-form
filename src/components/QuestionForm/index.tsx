@@ -1,3 +1,3 @@
-import QuestionForm from './component';
+import QuestionForm from "./component";
 
 export default QuestionForm;

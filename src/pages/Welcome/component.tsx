@@ -1,6 +1,6 @@
-import React from 'react';
-import QuestionForm from 'components/QuestionForm';
+import React from "react";
+import QuestionForm from "components/QuestionForm";
 
-export default function Welcome(props : any) {
-  return <QuestionForm {...props} />;
-}
+const Welcome = (props: any) => <QuestionForm {...props} />;
+
+export default Welcome;
