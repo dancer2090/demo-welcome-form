@@ -7,9 +7,8 @@ import {
 } from 'react-router-dom'
 
 // redux begin
-import { createStore } from 'redux';
-import { connect, Provider } from 'react-redux';
-import rootReducer, { store } from './reducers';
+import { Provider } from 'react-redux';
+import { store } from './reducers';
 // redux end
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Login from 'pages/Login';

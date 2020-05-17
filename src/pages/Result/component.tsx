@@ -123,26 +123,22 @@ const Result = (props: any) => {
   const [circlePct, updateCirclePct] = useState(90);
   const [resultObj, updateResultObj] = useState(defaultResultObj);
 
-  useEffect(() => {
-    do_circle();
-  }, []);
-
   const do_circle = () => {
-    var resultCount = 0;
-    var countQuestions = 0;
+    let resultCount = 0;
+    let countQuestions = 0;
 
-    props.answers.map((a: any, key: number) => {
+    props.answers.forEach((a: any, key: number) => {
       if (Array.isArray(a.value)) {
-        a.value.map((subValues: any, subKey: number) => {
+        a.value.forEach((subValues: any, subKey: number) => {
           var answerSubValue = questions[key].answer.value[subKey];
-          if (subValues == answerSubValue) resultCount = resultCount + 1;
+          if (subValues === answerSubValue) resultCount = resultCount + 1;
         });
       } else {
-        if (a.value == questions[key].answer.value)
+        if (a.value === questions[key].answer.value)
           resultCount = resultCount + 1;
       }
     });
-    questions.map((a: any, key: number) => {
+    questions.forEach((a: any) => {
       if (Array.isArray(a.answer.value)) {
         countQuestions = countQuestions + a.answer.value.length;
       } else countQuestions = countQuestions + 1;
@@ -173,6 +169,12 @@ const Result = (props: any) => {
     }
     return false;
   };
+
+  useEffect(() => {
+    do_circle();
+    // eslint-disable-next-line
+  }, []);
+
 
   const [open, setOpen] = useState(false);
   const [openThanks, setOpenThanks] = useState(false);
@@ -294,7 +296,7 @@ const Result = (props: any) => {
         <Container>
           <div className={classes.footerContainer}>
             <div className={classes.footerLeft}>
-              <img src={Photo} className={classes.footerPhoto} />
+              <img src={Photo} className={classes.footerPhoto} alt="Contact persona - Ivan Ivaneichyk" />
               <div className={classes.authorInfo}>
                 <div className={classes.authorText}>Contact persona</div>
                 <div className={classes.authorName}>Ivan Ivaneichyk</div>

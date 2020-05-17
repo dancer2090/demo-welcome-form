@@ -1,4 +1,4 @@
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { bpTheme } from "utils/breakpoints";
 
 export const useStyles = makeStyles((theme) => ({
@@ -107,6 +107,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   techLeft: {
     [bpTheme.breakpoints.down("sm")]: {
+      // eslint-disable-next-line
       ["& button"]: {
         position: "absolute",
         top: "100%",
@@ -161,6 +162,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     lineHeight: "21px",
     fontWeight: 500,
+    // eslint-disable-next-line
     ["&:hover"]: {
       backgroundColor: "#303f9f",
       boxShadow:
