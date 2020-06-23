@@ -217,7 +217,7 @@ const Result = (props: any) => {
                   fill="transparent"
                   strokeDasharray="565.48"
                   strokeDashoffset="0"
-                ></circle>
+                />
                 <circle
                   className={classes.bar}
                   stroke={resultObj.color}
@@ -227,7 +227,7 @@ const Result = (props: any) => {
                   fill="transparent"
                   strokeDasharray="565.48"
                   strokeDashoffset={strokeDashoffset}
-                ></circle>
+                />
               </svg>
             </div>
             <div className={classes.resultText}>
@@ -300,7 +300,9 @@ const Result = (props: any) => {
               <div className={classes.authorInfo}>
                 <div className={classes.authorText}>Contact persona</div>
                 <div className={classes.authorName}>Ivan Ivaneichyk</div>
-                <div className={classes.authorUrl}>frontback.org</div>
+                <div className={classes.authorUrl}>
+                  <a className={classes.authorUrlLink} href="https://frontback.org/">frontback.org</a>
+                </div>
               </div>
             </div>
             <div className={classes.footerRight}>

@@ -63,7 +63,7 @@ const QuestionForm = () => {
     <section className={classes.root}>
       <Container className={classes.container}>
         <Paper className={classes.paper}>
-          <Typography variant="h3">Heading</Typography>
+          <Typography variant="h3">Welcome to the Typescript demo test</Typography>
           <Typography>
             Please, fill in the form to see how does this demo work.
           </Typography>

@@ -284,6 +284,13 @@ export const useStyles = makeStyles((theme) => ({
       marginTop: "24px",
     },
   },
+  authorUrlLink: {
+    color: '#ffffff',
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+      color: 'blue',
+    }
+  },
   letsWork: {
     fontSize: "24px",
     lineHeight: "28px",
